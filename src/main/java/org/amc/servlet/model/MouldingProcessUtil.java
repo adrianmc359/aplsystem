@@ -82,6 +82,18 @@ public class MouldingProcessUtil
 		return (finalVelocity-intialVelocity)/acceleration;
 	}
 	
+	/**
+	 * t=sqrt(2*s/a)
+	 * @param distance
+	 * @param acceleration
+	 * @return time
+	 */
+	private static float getTime(float distance,float acceleration)
+	{
+		
+		return (float)Math.sqrt((2*distance)/Math.abs(acceleration));
+	}
+	
 	public static float getMouldClosingTime(MouldingProcess process)
 	{
 		float[][] data=getMouldClosingTimeData(process);
@@ -206,14 +218,54 @@ public class MouldingProcessUtil
 		return data;
 }
 	
+	private static void calculateChanges(float[] posData, float[] speedData,float[][] data)
+	{
+		int i=0;// Pointer for posData and speedData array
+		int t=0;// Pointer for the result array: Data[][]
+		float time=0f;
+		float distance=0f;
+		float speed=0f;
+		//Calculate the areas of velocity change
+		while(i<posData.length)
+		{
+			//Check if there's an acceleration or deceleration
+			if(MouldingProcessUtil.getAcceleration(speed, speedData[i],2)>0)
+			{
+				//Calculate transitions in the graph
+				time=getTime(speed,speedData[i],CLAMP_CLOSING_ACCELERATION);
+				distance=getDistance(speed, time, CLAMP_CLOSING_ACCELERATION);
+				if(distance>posData[i])
+				{
+					time=getTime(posData[i],CLAMP_CLOSING_ACCELERATION);
+					distance=posData[i];
+					speed=CLAMP_CLOSING_ACCELERATION*time;
+					speedData[i]=speed;
+					//time=0;distance=0;
+				}
+				speed=speedData[i];
+				data[t][0]=time;
+				data[t][1]=distance;
+				data[t][2]=speed;
+			}
+			else
+			{
+				time=getTime(speed,speedData[i],CLAMP_CLOSING_DEACCELERATION);
+				distance=getDistance(speed, time, CLAMP_CLOSING_DEACCELERATION);
+				speed=speedData[i];
+				data[t][0]=time;
+				data[t][1]=distance;
+				data[t][2]=speed;
+			}
+			i++;
+			t=t+2;//Store result in every odd index in the result array so we can calculate the even index results later
+			
+			
+		}
+	}
 
 	
 	/**
-<<<<<<< HEAD
 	 * todo Fix the problem when acceleration/deceleration distance is greater than the pre-set distance
-=======
-	 * 
->>>>>>> 55411e149705a908978dd4d338261b2b3a0696e4
 	 * @param process
 	 * @return an array of floats [[time_1,distance_1],...]
 	 */
@@ -256,42 +308,11 @@ public class MouldingProcessUtil
 				process.getClsSPSpeed()
 		};
 		
-		int i=0;// Pointer for posData and speedData array
-		int t=0;// Pointer for the result array: Data[][]
-		float time=0f;
-		float distance=0f;
-		float speed=0f;
-		//Calculate the areas of velocity change
-		while(i<posData.length)
-		{
-			//Check if there's an acceleration or deceleration
-			if(MouldingProcessUtil.getAcceleration(speed, speedData[i],2)>0)
-			{
-				//Calculate transitions in the graph
-				time=getTime(speed,speedData[i],CLAMP_CLOSING_ACCELERATION);
-				distance=getDistance(speed, time, CLAMP_CLOSING_ACCELERATION);
-				speed=speedData[i];
-				data[t][0]=time;
-				data[t][1]=distance;
-				data[t][2]=speed;
-			}
-			else
-			{
-				time=getTime(speed,speedData[i],CLAMP_CLOSING_DEACCELERATION);
-				distance=getDistance(speed, time, CLAMP_CLOSING_DEACCELERATION);
-				speed=speedData[i];
-				data[t][0]=time;
-				data[t][1]=distance;
-				data[t][2]=speed;
-			}
-			i++;
-			t=t+2;//Store result in every odd index in the result array so we can calculate the even index results later
-			
-			
-		}
+		calculateChanges(posData, speedData, data);
+		
 		//Reset Counters and temporary variables
-		i=0;t=1;//T=1 so we can work on the even index results in the results array (data[][])
-		distance=0;speed=0;time=0;
+		int i=0,t=1;//T=1 so we can work on the even index results in the results array (data[][])
+		float distance=0,speed=0,time=0;
 		while(i<posData.length)
 		{
 			distance=posData[i];
@@ -302,7 +323,7 @@ public class MouldingProcessUtil
 			 * Between the initial acceleration and final deceleration the time/distance is halved between each 
 			 * set distance
 			 */
-			if(i==0)
+			if(i==0 || data[t-2][1]==0)
 			{
 				distanceDelta=data[t-1][1]+data[t+1][1]/2;
 			}
@@ -323,7 +344,46 @@ public class MouldingProcessUtil
 			//If the distance change is greater than the distance of pre set position then distance is set to zero
 			if(distanceDelta>distance)
 			{
-				distance=0;
+				if(i>1)
+				{
+					posData[i-1]=posData[i-1]+(distance-distanceDelta);
+					posData[i]=posData[i]-(distance-distanceDelta);
+					t=t-2;
+					i=i-1;
+					continue;
+				}
+				else
+				{
+//					float newTime=getTime(distance/2, CLAMP_CLOSING_ACCELERATION);
+//					float newSpeed=newTime*CLAMP_CLOSING_ACCELERATION;
+//					data[t-1][0]=newTime;
+//					data[t-1][1]=distance/2;
+//					data[t-1][2]=newSpeed;
+//					
+//					data[t][0]=0;
+//					data[t][1]=0;
+//					data[t][2]=newSpeed;
+//					posData[i]=distance/2;
+//					speedData[i]=newSpeed;
+//					calculateChanges(posData, speedData, data);
+//					i++;
+//					t=t+2;
+//					continue;
+//					posData[i]=0;
+//					speedData[i]=0;
+//					data[t-1][0]=0;
+//					data[t-1][1]=0;
+//					data[t-1][2]=0;
+					data[t][0]=0;
+					data[t][1]=0;
+					data[t][2]=speedData[i];
+//					calculateChanges(posData, speedData, data);
+					i++;
+					t+=2;
+					continue;
+					
+					
+				}
 			}
 			else
 			{
@@ -339,15 +399,16 @@ public class MouldingProcessUtil
 		}
 		
 
-//		distance=0f;
-//		time=0f;
-//		for(float[] f:data)
-//		{
-//			distance+=f[1];
-//			time+=f[0];
-//			System.out.printf("Distance(%.3f) Time(%.3f) Speed(%.3f)%n",f[1],f[0],f[2]);
-//			//System.out.printf("Distance(%.3f) Time(%.3f) Speed(%.3f)%n",distance,time,f[2]);
-//		}
+		distance=0f;
+		time=0f;
+		for(float[] f:data)
+		{
+			distance+=f[1];
+			time+=f[0];
+			System.out.printf("Distance(%.3f) Time(%.3f) Speed(%.3f)%n",f[1],f[0],f[2]);
+			
+		}
+		System.out.printf("Distance(%.3f) Time(%.3f)",distance,time);
 
 		
 		
@@ -357,20 +418,19 @@ public class MouldingProcessUtil
 	
 	public static void main(String[] args)
 	{
+		//5.434387 + 63.155975 + 187.617035 + 154.884644 = 411.092041
+		MouldingProcess process=new MouldingProcess();
+		process.setMouldClosingOpenLimitPos(411f);
+		process.setMouldClosedLimitPos(350.57f);
+		process.setClsSlowPos(342.41f);
+		process.setClsSPPos(187.5f);
 		
-		MouldingProcess p=new MouldingProcess();
-		p.setMouldClosingOpenLimitPos(388);
-		p.setMouldClosedLimitPos(250);
-		p.setClsSlowPos(190);
-		p.setClsSPPos(68.9f);
-		p.setMouldClosingOpenLimitSpeed(415);
-		p.setMouldClosedLimitSpeed(250);
-		p.setClsSPSpeed(200);
 		
-		//System.out.println(getMouldClosingTime(p));
-		getMouldClosingTimeData(p);
-		getOldMouldClosingTimeData(p);
+		process.setMouldClosingOpenLimitSpeed(400f);
+		process.setMouldClosedLimitSpeed(198.1f);
+		process.setClsSPSpeed(61.67f);
 		
+		MouldingProcessUtil.getMouldClosingTimeData(process);
 		
 		
 	}

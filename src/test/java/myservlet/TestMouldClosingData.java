@@ -32,6 +32,13 @@ public class TestMouldClosingData
 			
 			float[][] data=MouldingProcessUtil.getMouldClosingTimeData(p);
 			float result=0f;
+			System.out.printf("%f %f % f %f - %f % f %f%n",
+					mouldClosingLimitPos,
+					mouldClosedLimitPos,
+					clsSlowPos,clsSPPos,
+					mouldClosingOpenLimitSpeed,
+					mouldClosedLimitSpeed,
+					clsSPSpeed);
 			System.out.printf("Expected:%f + %f + %f + %f = %f%n",mouldClosingLimitPos-mouldClosedLimitPos,mouldClosedLimitPos-clsSlowPos,clsSlowPos-clsSPPos,clsSPPos,(mouldClosingLimitPos-mouldClosedLimitPos)+(mouldClosedLimitPos-clsSlowPos)+(clsSlowPos-clsSPPos)+(clsSPPos));
 			System.out.print("Actual:");
 			for(float[] t:data)
