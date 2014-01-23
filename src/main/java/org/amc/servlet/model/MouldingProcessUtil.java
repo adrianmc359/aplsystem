@@ -106,117 +106,7 @@ public class MouldingProcessUtil
 		return result;
 	}
 	
-	/**
-	 * 
-	 * @param process
-	 * @return an array of floats [[time_1,distance_1],...]
-	 */
-	@Deprecated
-	public static float[][] getOldMouldClosingTimeData(MouldingProcess process)
-	{
-		float[][] data=new float[8][3];
-		float expectedDistance1=process.getMouldClosingOpenLimitPos()-process.getMouldClosedLimitPos();
-		float expectedDistance2=process.getMouldClosedLimitPos()-process.getClsSlowPos();
-		float expectedDistance3=process.getClsSlowPos()-process.getClsSPPos();
-		
-		float speed1=process.getMouldClosingOpenLimitSpeed();
-		float speed2=process.getMouldClosedLimitSpeed();
-		float speed3=process.getClsSPSpeed();
-		
-		
-		//Calculate transitions in the graph
-		float timeA=getTime(0,speed1,CLAMP_CLOSING_ACCELERATION);
-		float distanceA=getDistance(0, timeA, CLAMP_CLOSING_ACCELERATION);
-		data[0][0]=timeA;
-		data[0][1]=distanceA;
-		data[0][2]=speed1;
-		
-		//Zone C
-		float timeC=0;
-		float distanceC=0;
-		//Find out if there's an increase or decrease acceleration
-		if(getAcceleration(speed1, speed2, 1)<0)
-		{
-				timeC=getTime(speed1, speed2,CLAMP_CLOSING_DEACCELERATION);
-				distanceC=getDistance(speed1,timeC, CLAMP_CLOSING_DEACCELERATION);
-		}
-		else
-		{
-				timeC=getTime(speed1, speed2,CLAMP_CLOSING_ACCELERATION);
-				distanceC=getDistance(speed1,timeC, CLAMP_CLOSING_ACCELERATION);
-		}
-		data[2][0]=timeC;
-		data[2][1]=distanceC;
-		data[2][2]=speed2;
-		//Zone E
-		
-		float timeE=0;
-		float distanceE;
-		if(getAcceleration(speed2, speed3, 1)<0)
-		{
-			timeE=getTime(speed2, speed3,CLAMP_CLOSING_DEACCELERATION);
-			distanceE=getDistance(speed2,timeE, CLAMP_CLOSING_DEACCELERATION);
-		}
-		else
-		{
-			timeE=getTime(speed2, speed3,CLAMP_CLOSING_ACCELERATION);
-			distanceE=getDistance(speed2,timeE, CLAMP_CLOSING_ACCELERATION);
-		}
-		data[4][0]=timeE;
-		data[4][1]=distanceE;
-		data[4][2]=speed3;
-		
-		//Zone G
-		float timeG=0;
-		float distanceG=0;
-		if(getAcceleration(speed3, 0, 1)<0)
-		{
-			timeG=getTime(speed3, 0,CLAMP_CLOSING_DEACCELERATION);
-			distanceG=getDistance(speed3,timeG, CLAMP_CLOSING_DEACCELERATION);
-		}
-		else
-		{
-			timeG=getTime(speed3, 0,CLAMP_CLOSING_ACCELERATION);
-			distanceG=getDistance(speed3,timeG, CLAMP_CLOSING_ACCELERATION);
-		}
-		
-		data[6][0]=timeG;
-		data[6][1]=distanceG;
-		data[6][2]=0;
-		
-		float distanceB=expectedDistance1-(distanceA+0.5f*distanceC);
-		distanceB=(distanceB<0)?0:distanceB;
-		float timeB=(distanceB/speed1<0)?0:distanceB/speed1;
-		data[1][0]=timeB;
-		data[1][1]=distanceB;
-		data[1][2]=speed1;
-		
-		float distanceD=expectedDistance2-(0.5f*distanceC+0.5f*distanceE);
-		distanceD=(distanceD<0)?0:distanceD;
-		float timeD=(distanceD/speed2<0)?0:distanceD/speed2;
-		data[3][0]=timeD;
-		data[3][1]=distanceD;
-		data[3][2]=speed2;
-		
-		float distanceF=expectedDistance3-(0.5f*distanceE+distanceG);
-		distanceF=(distanceF<0)?0:distanceF;
-		float timeF=(distanceF/speed3<0)?0:distanceF/speed3;
-		data[5][0]=timeF;
-		data[5][1]=distanceF;
-		data[5][2]=speed3;
-		//After reaching the mould protect point(ClsSPPos) the mould is accelerated to when the mould faces meet
-		
-		float timeH=(float)Math.sqrt((2*process.getClsSPPos())/CLAMP_CLOSING_ACCELERATION);//t=sqrt(2*s/a)
-		data[7][0]=timeH;
-		data[7][1]=process.getClsSPPos();
-		data[7][2]=(CLAMP_CLOSING_ACCELERATION*timeH);
-		
-		for(int i=0;i<data.length;i++)
-		{
-			System.out.println("("+data[i][1]+","+data[i][0]+")");
-		}
-		return data;
-}
+	
 	
 	private static void calculateChanges(float[] posData, float[] speedData,float[][] data)
 	{
@@ -269,6 +159,7 @@ public class MouldingProcessUtil
 	 * @param process
 	 * @return an array of floats [[time_1,distance_1],...]
 	 */
+	
 	public static float[][] getMouldClosingTimeData(MouldingProcess process)
 	{
 		float[][] data=new float[8][3];
