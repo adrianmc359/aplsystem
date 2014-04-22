@@ -66,28 +66,28 @@ input[type="text"]
 <TABLE>
 <%-- To be used in edit mode to store the id of the object being edited --%>
 <TR><TD class="description">Name</TD><TD>
-	<input type='text' name='name' <c:if test='${form ne null}'>value='${form.name}'</c:if> autofocus="autofocus"/>
+	<input type='text' name='name' <c:if test='${form ne null}'>value="<c:out value='${form.name}' />"</c:if> autofocus="autofocus"/>
 </TD></TR>
 <TR><TD class="description">Company</TD><TD>
-	<input type='text' name='company' <c:if test='${form ne null}'>value='${form.company}'</c:if> />
+	<input type='text' name='company' <c:if test='${form ne null}'>value="<c:out value='${form.company}' />"</c:if> />
 </TD></TR>
 <TR><TD class="description">Product No.</TD><TD>
-	<input type='text' name='part_id' <c:if test='${form ne null}'>value='${form.part_id}'</c:if> />
+	<input type='text' name='part_id' <c:if test='${form ne null}'>value="<c:out value='${form.part_id}' />"</c:if> />
 </TD></TR>
 <TR><TD class="description">Version</TD><TD>
-	<input type='text' name='version' <c:if test='${form ne null}'>value='${form.version}'</c:if> />
+	<input type='text' name='version' <c:if test='${form ne null}'>value="<c:out value='${form.version}' />"</c:if> />
 </TD></TR>
 <TR><TD class="description">Revision</TD><TD>
-	<input type='text' name='revision' <c:if test='${form ne null}'>value='${form.revision}'</c:if> />
+	<input type='text' name='revision' <c:if test='${form ne null}'>value="<c:out value='${form.revision}' />"</c:if> />
 </TD></TR>
 <TR><TD class="description">Colour</TD><TD>
-	<input type='text' name='colour' <c:if test='${form ne null}'>value='${form.colour}'</c:if> />
+	<input type='text' name='colour' <c:if test='${form ne null}'>value="<c:out value='${form.colour}' />"</c:if> />
 </TD></TR>
 <TR><TD class="description">External</TD><TD>
 	<input type='checkbox' name='external' <c:if test='${form ne null and form.external eq true}'>checked='checked'</c:if> />
 </TD></TR>
 <TR><TD class="description">QSS No.</TD><TD>
-	<input type='text' name='qss_no' <c:if test='${form ne null}'>value='${form.qss_no}'</c:if> />
+	<input type='text' name='qss_no' <c:if test='${form ne null}'>value="<c:out value='${form.qss_no}' />"</c:if> />
 </TD></TR>
 
 
