@@ -106,8 +106,32 @@ var tabs=["info",
           "ejectors",
           "dme"
          ];
+
+function addFloatRegex()
+{
+	var patternRegex="[0-9]*.?[0-9]*";
+	var elements =document.getElementsByClassName("float");
+	console.log("Regex:float "+elements.length);
+	for(var i=0;i<elements.length;i++)
+	{
+		var inputs=elements[i].getElementsByTagName("input");
+		console.log("Regex:Input "+inputs.length);
+		for(var t=0;t<inputs.length;t++)
+		{
+			if((inputs[t]!=null || inputs[t]!="") && !isNaN(Number(inputs[t].value)))
+			{
+				console.log(inputs[t].name+":"+Number(inputs[t].value));
+				inputs[t].pattern=patternRegex;
+			}
+		}
+	}
+}
 //When the last input element in the div is entered the script will display the next div
-window.addEventListener("load",function(){addChangePageListenerInput(tabs);},true);
+window.addEventListener("load",
+		function(){
+		addChangePageListenerInput(tabs);
+		addFloatRegex();
+		},true);
 
 </script>
 
@@ -144,8 +168,8 @@ window.addEventListener("load",function(){addChangePageListenerInput(tabs);},tru
 <legend>Basic Information</legend>
 <TABLE>
 
-<TR><TD>Part ID:</TD><TD><input type="text" name="partId" value="<c:out value='${form.partId}' />" autofocus="autofocus"/></TD></TR>
-<TR><TD>Machine Size:</TD><TD><input type="text" name="machineSize"  value="<c:out value='${form.machineSize}' />"/></TD></TR>
+<TR><TD>Part ID:</TD><TD><input type="text" name="partId" value="<c:out value='${form.partId}' />" autofocus="autofocus" /></TD></TR>
+<TR><TD>Machine Size:</TD><TD><input type="text" name="machineSize"  value="<c:out value='${form.machineSize}' />" /></TD></TR>
 <TR><TD>Machine No:</TD><TD><input type="text" name="machineNo" value="<c:out value='${form.machineNo}' />"/></TD></TR>
 <TR><TD>Material:</TD><TD>
  

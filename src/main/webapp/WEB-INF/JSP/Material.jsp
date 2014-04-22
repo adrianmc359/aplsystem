@@ -40,15 +40,15 @@ input[type="text"]
 <TR><TD class="description">Company:</TD><TD><input type="text" name="company"  value="<c:out value='${form.company}' />" autofocus="autofocus"/></TD></TR>
 <TR><TD class="description">Name:</TD><TD><input type="text" name="name" value="<c:out value='${form.name}' />" /></TD></TR>
 <TR><TD class="description">Type:</TD><TD><input type="text" name="type" value="<c:out value='${form.type}' />"/></TD></TR>
-<TR><TD class="description">Density:</TD><TD><input type="text" name="density" value="<c:out value='${form.density}' />"/></TD></TR>
-<TR><TD class="description">Linear Expansion:</TD><TD><input type="text" name="linear_expansion" value="<c:out value='${form.linear_expansion}' />"/></TD></TR>
-<TR><TD class="description">Water Absorption:</TD><TD><input type="text" name="water_absorption"  value="<c:out value='${form.water_absorption}' />"/></TD></TR>
-<TR><TD class="description">Material Drying:</TD><TD><input type="text" name="material_drying"  value="<c:out value='${form.material_drying}' />"/></TD></TR>
-<TR><TD class="description">Lower Melting temperature:</TD><TD><input type="text" name="melting_temp_lower"  value="<c:out value='${form.melting_temp_lower}' />"/></TD></TR>
-<TR><TD class="description">Upper Melting temperature:</TD><TD><input type="text" name="melting_temp_upper"  value="<c:out value='${form.melting_temp_upper}' />"/></TD></TR>
-<TR><TD class="description">Shrinkage:</TD><TD><input type="text" name="mould_shrinkage"  value="<c:out value='${form.mould_shrinkage}' />"/></TD></TR>
-<TR><TD class="description">Lower Mould temperature:</TD><TD><input type="text" name="mould_temp_low"  value="<c:out value='${form.mould_temp_low}' />"/></TD></TR>
-<TR><TD class="description">Upper Mould temperature:</TD><TD><input type="text" name="mould_temp_upper"  value="<c:out value='${form.mould_temp_upper}' />"/></TD></TR>
+<TR><TD class="description">Density:</TD><TD><input type="text" name="density" value="<c:out value='${form.density}'/>" pattern="[0-9]*.?[0-9]*"/></TD></TR>
+<TR><TD class="description">Linear Expansion:</TD><TD><input type="text" name="linear_expansion" value="<c:out value='${form.linear_expansion}' />" pattern="[0-9]*.?[0-9]*"/></TD></TR>
+<TR><TD class="description">Water Absorption:</TD><TD><input type="text" name="water_absorption"  value="<c:out value='${form.water_absorption}' />" pattern="[0-9]*.?[0-9]*" /></TD></TR>
+<TR><TD class="description">Material Drying:</TD><TD><input type="text" name="material_drying"  value="<c:out value='${form.material_drying}' />" pattern="[0-9]*.?[0-9]*"/></TD></TR>
+<TR><TD class="description">Lower Melting temperature:</TD><TD><input type="text" name="melting_temp_lower"  value="<c:out value='${form.melting_temp_lower}' />" pattern="[0-9]*.?[0-9]*" /></TD></TR>
+<TR><TD class="description">Upper Melting temperature:</TD><TD><input type="text" name="melting_temp_upper"  value="<c:out value='${form.melting_temp_upper}' />" pattern="[0-9]*.?[0-9]*"/></TD></TR>
+<TR><TD class="description">Shrinkage:</TD><TD><input type="text" name="mould_shrinkage"  value="<c:out value='${form.mould_shrinkage}' />" pattern="[0-9]*.?[0-9]*"/></TD></TR>
+<TR><TD class="description">Lower Mould temperature:</TD><TD><input type="text" name="mould_temp_low"  value="<c:out value='${form.mould_temp_low}' />" pattern="[0-9]*.?[0-9]*"/></TD></TR>
+<TR><TD class="description">Upper Mould temperature:</TD><TD><input type="text" name="mould_temp_upper"  value="<c:out value='${form.mould_temp_upper}' />"pattern="[0-9]*.?[0-9]*"/></TD></TR>
 </TABLE>
 <span class="buttons">
 <%-- To tell the servlet which mode the page is submitting in --%>
