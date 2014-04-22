@@ -136,7 +136,8 @@ public class APLProcessServlet extends HttpServlet
 			//create model
 			MouldingProcess processSheet;
 			
-			String dispatcherURL="";
+			//Default dispatch URL
+			//String dispatcherURL="/ProcessSheet_search";
 			
 			SaveProcessSheetAction action=processActionFactory.getSaveProcessSheetAction();
 			try
@@ -147,7 +148,6 @@ public class APLProcessServlet extends HttpServlet
 				{
 					logger.debug(String.format("SaveProcessSheet:Entering entry into database"));
 					action.save(processSheet);
-					dispatcherURL="ProcessSheet_search";
 					response.sendRedirect(request.getContextPath()+"/ProcessSheet_search"); // Goto the Search Window
 					return; // Exit function 
 				}
@@ -158,16 +158,19 @@ public class APLProcessServlet extends HttpServlet
 					//processSheet.setId(Integer.parseInt(jForm.getId()));
 					processSheet.setId(Integer.parseInt(jForm.getId()));
 					action.edit(processSheet);
-					dispatcherURL="ProcessSheet_search";
 					response.sendRedirect(request.getContextPath()+"/ProcessSheet_search"); // Goto the Search Window
 					return; // Exit function 
 				}
+				else
+				{
+					throw new ServletException("Form received can't be processed");
+				}
 
 				//request.removeAttribute("form");
-				request.removeAttribute("errors");
-				RequestDispatcher rd=request.getRequestDispatcher(dispatcherURL);
+				//request.removeAttribute("errors");
+				//RequestDispatcher rd=request.getRequestDispatcher(dispatcherURL);
 				
-				rd.forward(request, response);
+				//rd.forward(request, response);
 			}
 			catch(NumberFormatException se)
 			{

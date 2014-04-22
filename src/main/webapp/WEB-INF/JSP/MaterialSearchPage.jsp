@@ -24,7 +24,7 @@
 <TABLE>
 <TR><TH>Company</TH><TH>Name</TH><TH>Type</TH><TH></TH></TR>
 <c:forEach items="${materials}" var="material">
-<TR  onclick="selected(this)"><TD>${material.value.company}</TD><TD>${material.value.name}</TD><TD>${material.value.type}</TD><TD  class="checkbox"><input type="checkbox" name="edit" value="${material.value.id}"/></TD></TR>
+<TR  onclick="selected(this)"><TD><c:out value="${material.value.company}"/></TD><TD><c:out value="${material.value.name}"/></TD><TD><c:out value="${material.value.type}"/></TD><TD  class="checkbox"><input type="checkbox" name="edit" value="${material.value.id}"/></TD></TR>
 </c:forEach>
 <TR><TD></TD><TD></TD><TD></TD></TR>
 </TABLE>

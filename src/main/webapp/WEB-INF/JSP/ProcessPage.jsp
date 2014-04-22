@@ -88,8 +88,8 @@ table
 <body>
 
 <!-- Javascript function to work tabbing -->
-<script type="text/javascript" src="js/InputFocus.js"></script>
-<script type="text/javascript" src="js/SelectDiv.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/InputFocus.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/SelectDiv.js"></script>
 <script>
 
 
@@ -152,7 +152,7 @@ window.addEventListener("load",function(){addChangePageListenerInput(tabs);},tru
 <select name="material">
 	<c:forEach items='${materials}' var='material'>
 		<option value='${material.key}' <c:if test="${material.key eq form.material}"><c:out value="selected='selected'"></c:out></c:if>>
-				${material.value}
+				<c:out value="${material.value}"/>
 		</option>
 	</c:forEach>
 </select>
@@ -320,7 +320,7 @@ window.addEventListener("load",function(){addChangePageListenerInput(tabs);},tru
 	<input type='submit'  name="mode" value='Enter'/>
 </c:if>
 <c:if test="${mode eq 'edit' }">
-	<input type='submit'  name="mode"/>
+	<input type='submit'  name="mode" value='edit'/>
 </c:if>
 </SPAN>
 </FORM>

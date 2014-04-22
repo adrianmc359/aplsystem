@@ -47,7 +47,7 @@ input[type="text"]
 }
 
 </STYLE>
-<script src="js/InputFocus.js"></script>
+<script src="${pageContext.request.contextPath}/js/InputFocus.js"></script>
 </head>
 <body>
 <DIV class="title">

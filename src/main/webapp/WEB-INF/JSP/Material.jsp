@@ -20,7 +20,7 @@ input[type="text"]
 	font-size:x-large;
 }
 </style>
-<script src="js/InputFocus.js"></script>
+<script src="${pageContext.request.contextPath}/js/InputFocus.js"></script>
 </head>
 
 <body>

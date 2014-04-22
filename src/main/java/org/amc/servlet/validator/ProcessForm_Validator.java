@@ -22,6 +22,13 @@ public class ProcessForm_Validator
 		{
 			errors.add("ID is not an integer");
 		}
+		
+		String productName=form.getPartId();
+		if(productName==null||productName.equals(""))
+		{
+			errors.add("Product Name required");
+		}
+		
 		String date=form.getDateOfIssue();
 		try
 		{

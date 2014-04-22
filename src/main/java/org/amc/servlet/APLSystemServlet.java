@@ -192,9 +192,13 @@ public class APLSystemServlet extends HttpServlet
 					//Current Part is updated in the Database
 					job.setId(Integer.parseInt(jForm.getId()));
 					action.edit(job);
-					//dispatcherURL="Part_search";
+					dispatcherURL="Part_search";
 					response.sendRedirect(request.getContextPath()+"/Part_search"); // Goto the Search Window
 					return; // Exit function 
+				}
+				else
+				{
+					throw new ServletException("Form received can't be processed");
 				}
 
 				//request.removeAttribute("form");

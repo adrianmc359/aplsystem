@@ -139,7 +139,7 @@ public class APLMaterialServlet extends HttpServlet
 			//create model
 			Material material;
 			
-			String dispatcherURL="";
+			//String dispatcherURL="";
 			
 			SaveMaterialAction action=materialActionFactory.getSaveMaterialAction();
 			try
@@ -150,7 +150,6 @@ public class APLMaterialServlet extends HttpServlet
 				{
 					logger.debug(String.format("SaveMaterial:Entering entry into database"));
 					action.save(material);
-					dispatcherURL="Material_search";
 					response.sendRedirect(request.getContextPath()+"/Material_search"); // Goto the Search Window
 					return; // Exit function 
 				}
@@ -161,16 +160,19 @@ public class APLMaterialServlet extends HttpServlet
 					//processSheet.setId(Integer.parseInt(jForm.getId()));
 					material.setId(Integer.parseInt(jForm.getId()));
 					action.edit(material);
-					dispatcherURL="Material_search";
 					response.sendRedirect(request.getContextPath()+"/Material_search"); // Goto the Search Window
 					return; // Exit function 
 				}
+				else
+				{
+					throw new ServletException("Form received can't be processed");
+				}
 
 				//request.removeAttribute("form");
-				request.removeAttribute("errors");
-				RequestDispatcher rd=request.getRequestDispatcher(dispatcherURL);
+				//request.removeAttribute("errors");
+				//RequestDispatcher rd=request.getRequestDispatcher(dispatcherURL);
 				
-				rd.forward(request, response);
+				//rd.forward(request, response);
 			}
 			catch(NumberFormatException se)
 			{

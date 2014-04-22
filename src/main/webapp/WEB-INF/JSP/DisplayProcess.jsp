@@ -7,8 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>process: ${process.partId}</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css">
-<script src="js/InputFocus.js"></script>
-<script src="js/SelectDiv.js"></script>
+<script src="${pageContext.request.contextPath}/js/InputFocus.js"></script>
+<script src="${pageContext.request.contextPath}/js/SelectDiv.js"></script>
 <SCRIPT>
 //An array of Chart IDs
 var charts=[
