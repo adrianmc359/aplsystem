@@ -1,4 +1,4 @@
-Developing a web application to store andanalysis information related to Injection moulding process parameters using: 
+Developing a web application to store and analyse information related to injection moulding process parameters using: 
 Java Servlets,
 JavaServer Pages,
 Spring for dependency injection,
