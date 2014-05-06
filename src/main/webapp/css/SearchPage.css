@@ -70,8 +70,9 @@ TABLE
 TD
 {
 	text-align:left;
-	font-size:xx-large;
+	font-size:x-large;
 	line-height: 77px;
+	white-space: nowrap;
 }
 
 TR:nth-child(even)
@@ -86,7 +87,7 @@ TR:nth-child(even)
 TH
 {
 	text-align:left;
-	font-size:xx-large;
+	font-size:x-large;
 }
 
 INPUT[type="checkbox"]

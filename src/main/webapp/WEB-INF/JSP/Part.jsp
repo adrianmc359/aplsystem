@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 
 <html>
@@ -55,6 +56,7 @@ input[type="text"]
 </DIV>
 
 <%@ include file="NavigationDiv.jspf" %>
+<tags:Navbox href="${pageContext.request.contextPath}/Part_search" value="Search Page" position="220px"></tags:Navbox>
 <%-- Display errors if there any --%>
 <c:if test="${errors ne null }">
 <SCRIPT>alert("${errors}");</SCRIPT>
@@ -94,7 +96,7 @@ input[type="text"]
 </TABLE>
 
 <span class="buttons">
-<button type="button" value="home" onclick="home()">Home</button>
+<!-- <button type="button" value="home" onclick="home()">Home</button>  -->
 <%-- To tell the servlet which mode the page is submitting in --%>
 <c:if test="${mode eq null }">
 	<input type='submit'  name="mode" value='Enter'/>

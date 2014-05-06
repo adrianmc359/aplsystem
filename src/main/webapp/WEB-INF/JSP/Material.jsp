@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,6 +27,7 @@ input[type="text"]
 <body>
 <div class="title"><h1>Material</h1></div>
 <%@ include file="NavigationDiv.jspf" %>
+<tags:Navbox href="${pageContext.request.contextPath}/Material_search" value="Search Page" position="220px"/>
 <%-- Display errors if there any --%>
 <c:if test="${errors ne null }">
 <SCRIPT>alert("${errors}");</SCRIPT>

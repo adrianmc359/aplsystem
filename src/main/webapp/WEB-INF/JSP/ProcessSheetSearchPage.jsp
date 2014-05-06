@@ -54,7 +54,8 @@ function isDisplayChecked(id)
 <FORM action="${pageContext.request.contextPath}/ProcessSheet_search" method="post">
 <DIV class="results">
 <TABLE>
-<TR><TH>Date Of Issue</TH><TH>Product</TH><TH>machineSize</TH><TH>Machine No.</TH><TH>Material</TH><TH></TH></TR>
+<thead><tr><TH>Date Of Issue</TH><TH>Product</TH><TH>Machine Size</TH><TH>Machine No.</TH><TH>Material</TH><TH></TH></tr></thead>
+<tbody>
 <c:forEach items="${processSheets}" var="part">
 <TR onclick="selected(this)"><TD><c:out value="${part.dateOfIssue}"/></TD><TD><c:out value="${part.partId}"/></TD><TD><c:out value="${part.machineSize}"/></TD><TD><c:out value="${part.machineNo}"/></TD><TD><c:out value='${materials[part.material]}'></c:out></TD><TD class="checkbox"><input type="checkbox" name="edit" value="${part.id}"/></TD></TR>
 </c:forEach>

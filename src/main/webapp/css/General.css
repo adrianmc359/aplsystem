@@ -24,7 +24,8 @@ body
 	max-height: 150px;
 	min-height: 70px;
 	line-height:70px;
-	width: 100px;
+	min-width: 100px;
+	max-width: 250px;
 	border-style:solid;
 	margin-right:5px;
 	text-align:center;
